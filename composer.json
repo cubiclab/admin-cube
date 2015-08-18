@@ -1,5 +1,5 @@
 {
-    "name": "cubiclab/AdminCube",
+    "name": "cubiclab/admin-cube",
     "version": "dev-master",
     "description": "Yii2 Admin Module (Cube) - Development package",
     "keywords": ["cubiclab"],
@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "yii\\AdminCube\\": "/"
+            "yii\\admincube\\": "/"
         }
     },
     "extra": {

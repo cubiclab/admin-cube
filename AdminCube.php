@@ -1,5 +1,5 @@
 <?php
-namespace yii\AdminCube;
+namespace yii\admincube;
 
 use Yii;
 use yii\base\BootstrapInterface;
@@ -15,7 +15,7 @@ class AdminCube extends \yii\base\Module implements BootstrapInterface
 
     public function bootstrap($app)
     {
-        Yii::setAlias('AdminCube', '@vendor/cubiclab/AdminCube');
+        Yii::setAlias('admincube', '@vendor/cubiclab/admin-cube');
 
     }
 }

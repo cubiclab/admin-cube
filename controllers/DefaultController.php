@@ -1,7 +1,10 @@
 <?php
-namespace yii\AdminCube\controllers;
+namespace yii\admincube\controllers;
 
-class DefaultController extends \yii\easyii\components\Controller
+use Yii;
+use \yii\web\Controller;
+
+class DefaultController extends Controller
 {
     public function actionIndex()
     {
