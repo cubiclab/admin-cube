@@ -9,11 +9,14 @@ With Composer installed, you can then install the Cube using the following comma
 
     composer require cubiclab/admin-cube:"dev-master"
 
-Add the following line to your YII config:
+Add the following lines to your YII config:
+```php
+// app/config/web.php
+return [
     'modules' => [
-        <........>
         'admin' => [
             'class' => 'yii\admincube\AdminCube',
         ],
-        <........>
     ],
+];
+```
