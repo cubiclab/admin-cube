@@ -6,7 +6,7 @@ use yii\base\BootstrapInterface;
 
 class AdminCube extends \yii\base\Module implements BootstrapInterface
 {
-    const VERSION = 0.0.1;
+    const VERSION = "0.0.1-prealpha";
 
     public function init()
     {
