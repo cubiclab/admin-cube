@@ -11,11 +11,26 @@ class AdminCube extends \yii\base\Module implements BootstrapInterface
     public function init()
     {
         parent::init();
+        $this->registerTranslations();
     }
 
-    public function bootstrap($app)
+    public function registerTranslations()
     {
-        Yii::setAlias('admincube', '@vendor/cubiclab/admin-cube');
+        if (empty(Yii::$app->i18n->translations['admincube'])) {
+            Yii::$app->i18n->translations['admincube'] = [
+                'class' => 'yii\i18n\PhpMessageSource',
+                'basePath' => __DIR__ . '/messages',
+            ];
+        }
+    }
 
+    public function bootstrap($app){
+        // Add module URL rules.
+        $app->getUrlManager()->addRules(
+            [
+                '' => 'admin/default/index',
+                '<_m>/<_c>/<_a>' => '<_m>/<_c>/<_a>'
+            ]
+        );
     }
 }
