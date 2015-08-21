@@ -1,5 +1,5 @@
 <?php
-namespace yii\admincube;
+namespace cubiclab\admin;
 
 use Yii;
 use yii\base\BootstrapInterface;

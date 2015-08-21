@@ -1,5 +1,5 @@
 <?php
-namespace yii\admincube\controllers;
+namespace cubiclab\admin\controllers;
 
 use Yii;
 use \yii\web\Controller;
