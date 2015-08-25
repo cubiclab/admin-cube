@@ -8,10 +8,13 @@ class AdminCube extends \yii\base\Module implements BootstrapInterface
 {
     const VERSION = "0.0.1-prealpha";
 
+
+
     public function init()
     {
         parent::init();
         $this->registerTranslations();
+        $this->layout = 'main';
     }
 
     public function registerTranslations()
