@@ -26,7 +26,10 @@ use cubiclab\admin\widgets\Menu;
         'injectFirslLine' => '<li class="nav-header">' . Yii::t('admincube', 'ADMIN_NAVIGATION') . '</li>',
         'injectLastLine' => '<li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>',
         'items' => [
-            ['label' => 'Dashboard', 'url' => ['/admin']],
+            ['label' => 'Dashboard', 'url' => ['/admin'], 'icon' => 'fa-cubes'],
+            ['label' => 'Users',  'icon' => 'fa-users', 'items' => [
+                ['label' => 'All users', 'url' => ['/admin/users/user']],
+            ]],
             ['label' => 'Access', 'items' => [
                 ['label' => 'Roles', 'url' => ['/admin/users/access/role']],
                 ['label' => 'Permissions', 'url' => ['/admin/users/access/permission']],

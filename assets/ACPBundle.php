@@ -15,13 +15,14 @@ class ACPBundle extends AssetBundle{
     public $sourcePath = '@vendor/cubiclab/admin-cube/assets';
     public $css = [
         'http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700',
-        //'css/animate.css',
-        //'css/style.css',
-        //'css/style-responsive.css',
+        'css/font-awesome.min.css',
+        'css/animate.css',
+        'css/style.css',
+        'css/style-responsive.css',
     ];
 
     public $js = [
-        //'js/apps.js',
+        'js/apps.js',
     ];
 
     public $depends = [
