@@ -8,8 +8,9 @@
 
 return [
 
-    'ADMIN_WELCOME'          => 'Панель управлени',
+    'ADMIN_NAVIGATION'       => 'РќР°РІРёРіР°С†РёСЏ',
+    'ADMIN_WELCOME'          => 'РџР°РЅРµР»СЊ СѓРїСЂР°РІР»РµРЅРёСЏ',
     'ADMIN_SUBTITLE'         => 'Admin Control panel',
-    'ADMIN_JUMBOTRON_MSG'    => 'Cubiclab панель управления.',
+    'ADMIN_JUMBOTRON_MSG'    => 'Cubiclab РїР°РЅРµР»СЊ СѓРїСЂР°РІР»РµРЅРёСЏ.',
 
 ];

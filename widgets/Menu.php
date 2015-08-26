@@ -14,27 +14,48 @@ use yii\helpers\Html;
 
 class Menu extends \yii\widgets\Menu
 {
-
+    /** @inheritdoc */
     public $options = ['class' => 'nav'];
 
-    public $itemOptions = ['class' => 'has-sub'];
-
+    /**
+     * @var string First level Template
+     */
     public $linkTemplateFirst = '<a href="{url}">{arrow} {icon}<span>{label}</span></a>';
+
+    /** @inheritdoc */
     public $linkTemplate = '<a href="{url}">{arrow} {label}</a>';
 
+    /**
+     * @var string If item has children add cssClass
+     */
     public $hasSubCssClass = "has-sub";
 
+    /** @inheritdoc */
     public $submenuTemplate = '<ul class="sub-menu">{items}</ul>';
 
+    /** @inheritdoc */
     public $activateParents = true;
 
     /**
-     * @inheritdoc
+     * @var string Injecting first element
      */
+    public $injectFirslLine;
+
+    /**
+     * @var string Injecting last element
+     */
+    public $injectLastLine;
+
+    /** @inheritdoc */
     protected function renderItems($items, $first = true)
     {
         $n = count($items);
         $lines = [];
+
+        if($first === true && $this->injectFirslLine !== null){
+            $lines[] =  $this->injectFirslLine;
+        }
+
         foreach ($items as $i => $item) {
             $options = array_merge($this->itemOptions, ArrayHelper::getValue($item, 'options', []));
             $tag = ArrayHelper::remove($options, 'tag', 'li');
@@ -67,12 +88,15 @@ class Menu extends \yii\widgets\Menu
             }
             $lines[] = Html::tag($tag, $menu, $options);
         }
+
+        if($first === true && $this->injectLastLine !== null){
+            $lines[] =  $this->injectLastLine;
+        }
+
         return implode("\n", $lines);
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** @inheritdoc */
     protected function renderItem($item, $first = true)
     {
 
@@ -92,9 +116,7 @@ class Menu extends \yii\widgets\Menu
         return strtr($template, $replace);
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** @inheritdoc */
     protected function normalizeItems($items, &$active)
     {
         foreach ($items as $i => $item) {
@@ -131,6 +153,4 @@ class Menu extends \yii\widgets\Menu
         }
         return array_values($items);
     }
-
-
 }

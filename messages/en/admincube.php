@@ -8,6 +8,7 @@
 
 return [
 
+    'ADMIN_NAVIGATION'       => 'Navigation',
     'ADMIN_WELCOME'          => 'Admin Dashboard',
     'ADMIN_SUBTITLE'         => 'Admin Control panel',
     'ADMIN_JUMBOTRON_MSG'    => 'Cubiclab Admin Control panel.',
