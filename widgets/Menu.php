@@ -8,12 +8,11 @@
 namespace cubiclab\admin\widgets;
 
 use Yii;
-use yii\widgets\Menu;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\helpers\Html;
 
-class ACPMenu extends Menu {
+class Menu extends \yii\widgets\Menu {
 
     public $options = ['class' => 'nav'];
 
