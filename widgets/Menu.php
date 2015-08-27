@@ -12,6 +12,11 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\helpers\Html;
 
+/**
+ * Class Menu
+ * @package cubiclab\admin\widgets
+ * SideMenu widget.
+ */
 class Menu extends \yii\widgets\Menu
 {
     /** @inheritdoc */
