@@ -13,6 +13,8 @@ use yii\helpers\Html;
 use yii\web\YiiAsset;
 use Yii;
 
+use cubiclab\admin\widgets\Modal;
+
 /**
  * Class Box
  * @package cubiclab\admin\widgets
@@ -62,11 +64,14 @@ class Panel extends Widget
      */
     public $buttonsTemplate;
 
-    /** @var string delete action param name*/
+    /** @var string delete action param name */
     public $deleteParam = 'id';
 
-    /** @var string mass parameters*/
+    /** @var string mass parameters */
     public $massParam = 'ids';
+
+    /** @var string|null Grid ID */
+    public $grid;
 
     /**
      * @inheritdoc
@@ -104,8 +109,23 @@ class Panel extends Widget
     /** @inheritdoc */
     public function run()
     {
-        echo Html::endTag('div'). "\n"; // Panel End body
-        echo Html::endTag('div'). "\n"; // Panel End
+        $this->registerClientScripts();
+        echo Html::endTag('div') . "\n"; // Panel End body
+        echo Html::endTag('div') . "\n"; // Panel End
+
+        Modal::begin([
+            'modal' => 'mass_delete_alert',
+            'options' => ['class' => 'fade'],
+        ]);
+        Modal::end();
+
+        Modal::begin([
+            'modal' => 'mass_delete_alert_no_sel',
+            'title' => Yii::t('admincube', 'MSG_NO_SELECTION'),
+            'options' => ['class' => 'fade'],
+        ]);
+            echo '<p>' . Yii::t('admincube', 'MSG_NO_SELECTION_DESCRIPTION') . '</p>';
+        Modal::end();
     }
 
     protected function initOptions()
@@ -154,7 +174,6 @@ class Panel extends Widget
         $this->bodyOptions['class'] = isset($this->bodyOptions['class']) ? $bodyStyles . ' ' . $this->bodyOptions['class'] : $bodyStyles;
 
 
-
         //$this->footerOptions['class'] = isset($this->footerOptions['class']) ? 'box-footer ' . $this->footerOptions['class'] : 'box-footer';
     }
 
@@ -185,12 +204,13 @@ class Panel extends Widget
         }
         if (!isset($this->buttons['mass-delete'])) {
             $this->buttons['mass-delete'] = [
-                'url' => ['mass-delete'],
+                'url' => ['#mass_delete_alert'],
                 'icon' => 'fa-trash-o',
                 'options' => [
                     'id' => 'mass-delete',
                     'class' => 'btn-' . Panel::DANGER,
-                    'title' => Yii::t('admincube', 'BUTTON_DELETE_MASS')
+                    'title' => Yii::t('admincube', 'BUTTON_DELETE_MASS'),
+                    //'data-toggle' => 'modal',
                 ]
             ];
         }
@@ -227,7 +247,7 @@ class Panel extends Widget
                     if (isset($this->buttons[$name])) {
                         $label = isset($this->buttons[$name]['label']) ? $this->buttons[$name]['label'] : '';
                         $url = isset($this->buttons[$name]['url']) ? $this->buttons[$name]['url'] : '#';
-                        $icon = isset($this->buttons[$name]['icon']) ? Html::tag('i','',['class' => 'fa ' . $this->buttons[$name]['icon']]) : '';
+                        $icon = isset($this->buttons[$name]['icon']) ? Html::tag('i', '', ['class' => 'fa ' . $this->buttons[$name]['icon']]) : '';
                         $label = $icon . ' ' . $label;
                         $this->buttons[$name]['options']['class'] = isset($this->buttons[$name]['options']['class']) ? 'btn btn-xs ' . $this->buttons[$name]['options']['class'] : 'btn btn-xs';
                         return Html::a($label, $url, $this->buttons[$name]['options']);
@@ -240,6 +260,38 @@ class Panel extends Widget
 
             // </div >
             echo Html::endTag('div'); //end buttons
+        }
+    }
+
+    /**
+     * Register widgets assets bundles.
+     */
+    protected function registerClientScripts()
+    {
+        if (strpos($this->buttonsTemplate, '{delete}') !== false && isset($this->buttons['delete'])) {
+            YiiAsset::register($this->getView());
+        }
+        if (strpos($this->buttonsTemplate, '{mass-delete}') !== false && $this->grid !== null && isset($this->buttons['mass-delete'])) {
+            $view = $this->getView();
+            YiiAsset::register($view);
+            $view->registerJs(
+                "jQuery(document).on('click', '#mass-delete', function (evt) {" .
+                    "evt.preventDefault();" .
+                        "var keys = jQuery('#" . $this->grid . "').yiiGridView('getSelectedRows');" .
+                            "if (keys == '') {" .
+                                "$('#mass_delete_alert_no_sel').modal('show')" .
+                                 //"alert('" . Yii::t('admincube', 'MSG_NO_SELECTION') . "');" .
+                            "} else {" .
+                                "if (confirm('" . Yii::t('admincube', 'MSG_DELETE_CONFIRM') . "')) {" .
+                                    "jQuery.ajax({" .
+                                        "type: 'POST'," .
+                                        "url: jQuery(this).attr('href')," .
+                                        "data: { " . $this->massParam . ": keys}" .
+                            "});" .
+                        "}" .
+                    "}" .
+                "});"
+            );
         }
     }
 
