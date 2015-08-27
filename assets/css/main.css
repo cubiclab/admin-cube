@@ -1,0 +1,137 @@
+body {
+    background: #d9e0e7;
+    font-size: 12px;
+    font-family: 'Open Sans', "Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: #707478;
+}
+.ie8 body {
+    font-family: Arial,sans-serif;
+}
+h1, h2, h3, h4, h5, h6{
+    font-weight: 500;
+    color: #242a30;
+}
+h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
+    font-size: 60%;
+    font-weight: 300;
+    color: #7c7f83;
+}
+a {
+    transition: color 100ms ease-in-out;
+    -o-transition: color 100ms ease-in-out;
+    -ms-transition: color 100ms ease-in-out;
+    -moz-transition: color 100ms ease-in-out;
+    -webkit-transition: color 100ms ease-in-out;
+}
+a:focus {
+    outline: none;
+}
+label {
+    color: #242a30;
+}
+
+.page-header-fixed {
+    padding-top: 54px;
+}
+.page-without-sidebar .content {
+    margin-left: 0;
+}
+.page-with-right-sidebar .sidebar,
+.page-with-right-sidebar .sidebar-bg {
+    left: auto;
+    right: 0;
+}
+.page-sidebar-fixed .sidebar {
+    position: fixed;
+}
+.page-with-right-sidebar .content {
+    margin-left: 0;
+    margin-right: 220px;
+}
+.page-with-right-sidebar .footer {
+    margin-left: 25px;
+    margin-right: 245px;
+}
+.page-with-two-sidebar.page-sidebar-fixed .sidebar.sidebar-right {
+    position: fixed;
+}
+.page-with-two-sidebar .sidebar.sidebar-right,
+.page-with-two-sidebar .sidebar-bg.sidebar-right {
+    right: 0;
+    left: auto;
+}
+.page-with-two-sidebar .content {
+    margin-right: 220px;
+}
+.page-with-two-sidebar.page-sidebar-minified .sidebar.sidebar-right,
+.page-with-two-sidebar.page-sidebar-minified .sidebar-bg.sidebar-right {
+    width: 220px;
+}
+.page-with-two-sidebar.page-right-sidebar-collapsed .sidebar.sidebar-right,
+.page-with-two-sidebar.page-right-sidebar-collapsed .sidebar-bg.sidebar-right {
+    right: -220px;
+}
+.page-with-two-sidebar.page-right-sidebar-collapsed .content {
+    margin-right: 0;
+}
+
+.content {
+    margin-left: 220px;
+    padding: 20px 25px;
+}
+.content.content-full-width {
+    padding: 0;
+}
+.content.content-full-width .page-header {
+    margin: 20px;
+}
+.content.content-full-width .breadcrumb {
+    margin: 0 20px 0 0;
+}
+.content.content-inverse-mode .page-header,
+.content.content-inverse-mode .breadcrumb a,
+.content.content-inverse-mode h1,
+.content.content-inverse-mode h2,
+.content.content-inverse-mode h3,
+.content.content-inverse-mode h4,
+.content.content-inverse-mode h5,
+.content.content-inverse-mode h6 {
+    color: #fff;
+}
+.content.content-full-width .page-header,
+.content.content-full-width .breadcrumb {
+    position: relative;
+    z-index: 10;
+}
+.content.content-full-width .breadcrumb {
+    z-index: 20;
+}
+.page-header {
+    font-size: 24px;
+    margin: 0 0 20px;
+    padding: 0;
+    border: none;
+    line-height: 28px;
+}
+.breadcrumb {
+    padding: 0;
+    margin: 0;
+    background: none;
+}
+.breadcrumb > li {
+    line-height: 28px;
+}
+.ie8 .breadcrumb > li {
+    display: inline;
+}
+.breadcrumb > li a {
+    color: #333;
+}
+
+.footer {
+    z-index: 1020;
+    padding: 10px 0;
+    margin: 0 25px 0 245px;
+    border-top: 1px solid #CAD0D6;
+    line-height: 20px;
+}
