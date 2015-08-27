@@ -124,7 +124,7 @@ class Panel extends Widget
             'title' => Yii::t('admincube', 'MSG_NO_SELECTION'),
             'options' => ['class' => 'fade'],
         ]);
-            echo '<p>' . Yii::t('admincube', 'MSG_NO_SELECTION_DESCRIPTION') . '</p>';
+        echo '<p>' . Yii::t('admincube', 'MSG_NO_SELECTION_DESCRIPTION') . '</p>';
         Modal::end();
     }
 
@@ -180,50 +180,52 @@ class Panel extends Widget
     /** Initializes the Panel buttons. */
     protected function initButtons()
     {
-        if (!isset($this->buttons['create'])) {
-            $this->buttons['create'] = [
-                'url' => ['create'],
-                'icon' => 'fa-plus',
-                'options' => [
-                    'class' => 'btn-' . Panel::SUCCESS,
-                    'title' => Yii::t('admincube', 'BUTTON_CREATE')
-                ]
-            ];
-        }
-        if (!isset($this->buttons['delete'])) {
-            $this->buttons['delete'] = [
-                'url' => ['delete', $this->deleteParam => Yii::$app->request->get($this->deleteParam)],
-                'icon' => 'fa-trash-o',
-                'options' => [
-                    'class' => 'btn-' . Panel::DANGER,
-                    'title' => Yii::t('admincube', 'BUTTON_DELETE'),
-                    'data-confirm' => Yii::t('admincube', 'MSG_DELETE_CONFIRM'),
-                    'data-method' => 'delete'
-                ]
-            ];
-        }
-        if (!isset($this->buttons['mass-delete'])) {
-            $this->buttons['mass-delete'] = [
-                'url' => ['#mass_delete_alert'],
-                'icon' => 'fa-trash-o',
-                'options' => [
-                    'id' => 'mass-delete',
-                    'class' => 'btn-' . Panel::DANGER,
-                    'title' => Yii::t('admincube', 'BUTTON_DELETE_MASS'),
-                    //'data-toggle' => 'modal',
-                ]
-            ];
-        }
-        if (!isset($this->buttons['cancel'])) {
-            $this->buttons['cancel'] = [
-                'url' => ['index'],
-                'icon' => 'fa-reply',
-                'options' => [
-                    'class' => 'btn-' . Panel::DANGER,
-                    'title' => Yii::t('admincube', 'BUTTON_CANCEL')
-                ]
-            ];
-        }
+        //create
+        $this->buttons['create'] = [
+            'url' => isset($this->buttons['create']['url']) ? $this->buttons['create']['url'] : ['create'],
+            'label' => isset($this->buttons['create']['label']) ? $this->buttons['create']['label'] : '',
+            'icon' => 'fa-plus',
+            'options' => [
+                'class' => 'btn-' . Panel::SUCCESS,
+                'title' => Yii::t('admincube', 'BUTTON_CREATE')
+            ]
+        ];
+        //delete
+        $this->buttons['delete'] = [
+            'url' => ['delete', $this->deleteParam => Yii::$app->request->get($this->deleteParam)],
+            'label' => isset($this->buttons['delete']['label']) ? $this->buttons['delete']['label'] : '',
+            'icon' => 'fa-trash-o',
+            'options' => [
+                'class' => 'btn-' . Panel::DANGER,
+                'title' => Yii::t('admincube', 'BUTTON_DELETE'),
+                'data-confirm' => Yii::t('admincube', 'MSG_DELETE_CONFIRM'),
+                'data-method' => 'delete'
+            ]
+        ];
+
+        //mass-delete
+        $this->buttons['mass-delete'] = [
+            'url' => isset($this->buttons['mass-delete']['url']) ? $this->buttons['mass-delete']['url'] : ['#mass_delete_alert'],
+            'label' => isset($this->buttons['mass-delete']['label']) ? $this->buttons['mass-delete']['label'] : '',
+            'icon' => 'fa-trash-o',
+            'options' => [
+                'id' => 'mass-delete',
+                'class' => 'btn-' . Panel::DANGER,
+                'title' => Yii::t('admincube', 'BUTTON_DELETE_MASS'),
+                //'data-toggle' => 'modal',
+            ]
+        ];
+
+        //cancel
+        $this->buttons['cancel'] = [
+            'url' => ['index'],
+            'icon' => 'fa-reply',
+            'options' => [
+                'class' => 'btn-' . Panel::DANGER,
+                'title' => Yii::t('admincube', 'BUTTON_CANCEL')
+            ]
+        ];
+
     }
 
     /** Render panel buttons. */
@@ -276,20 +278,20 @@ class Panel extends Widget
             YiiAsset::register($view);
             $view->registerJs(
                 "jQuery(document).on('click', '#mass-delete', function (evt) {" .
-                    "evt.preventDefault();" .
-                        "var keys = jQuery('#" . $this->grid . "').yiiGridView('getSelectedRows');" .
-                            "if (keys == '') {" .
-                                "$('#mass_delete_alert_no_sel').modal('show')" .
-                                 //"alert('" . Yii::t('admincube', 'MSG_NO_SELECTION') . "');" .
-                            "} else {" .
-                                "if (confirm('" . Yii::t('admincube', 'MSG_DELETE_CONFIRM') . "')) {" .
-                                    "jQuery.ajax({" .
-                                        "type: 'POST'," .
-                                        "url: jQuery(this).attr('href')," .
-                                        "data: { " . $this->massParam . ": keys}" .
-                            "});" .
-                        "}" .
-                    "}" .
+                "evt.preventDefault();" .
+                "var keys = jQuery('#" . $this->grid . "').yiiGridView('getSelectedRows');" .
+                "if (keys == '') {" .
+                "$('#mass_delete_alert_no_sel').modal('show')" .
+                //"alert('" . Yii::t('admincube', 'MSG_NO_SELECTION') . "');" .
+                "} else {" .
+                "if (confirm('" . Yii::t('admincube', 'MSG_DELETE_CONFIRM') . "')) {" .
+                "jQuery.ajax({" .
+                "type: 'POST'," .
+                "url: jQuery(this).attr('href')," .
+                "data: { " . $this->massParam . ": keys}" .
+                "});" .
+                "}" .
+                "}" .
                 "});"
             );
         }
