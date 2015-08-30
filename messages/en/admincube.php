@@ -18,6 +18,8 @@ return [
     'BUTTON_CANCEL'          => 'Cancel',
     'BUTTON_CLOSE'           => 'Close',
     'BUTTON_DELETE'          => 'Delete',
+    'BUTTON_CREATE'          => 'Create',
+    'BUTTON_UPDATE'          => 'Update',
 
     //messages
     'MSG_DELETE_CONFIRM'             => 'Delete confirmation',

@@ -18,6 +18,8 @@ return [
     'BUTTON_CANCEL'          => 'Отмена',
     'BUTTON_CLOSE'           => 'Закрыть',
     'BUTTON_DELETE'          => 'Удалить',
+    'BUTTON_CREATE'          => 'Создать',
+    'BUTTON_UPDATE'          => 'Изменить',
 
     //messages
     'MSG_DELETE_CONFIRM'             => 'Подтверждение удаления',
