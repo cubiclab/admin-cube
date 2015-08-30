@@ -27,9 +27,8 @@ class ACPBundle extends AssetBundle{
         'css/sidebar.css',
         'css/buttons.css',
         'css/panel.css',
-
-        //'css/style.css',
-        //'css/style-responsive.css',
+        'css/form.css',
+        'css/profile.css',
     ];
 
     public $js = [
