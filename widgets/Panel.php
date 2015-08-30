@@ -82,27 +82,18 @@ class Panel extends Widget
         $this->initOptions();
         $this->initButtons();
 
-        // Start panel
-        // <div class="panel panel-inverse" data - sortable - id = "ui-widget-1" >
         echo Html::beginTag('div', $this->headOptions) . "\n";
-
         if ($this->title !== null || !empty($this->buttons)) {
-            // <div class="panel-heading" >
             echo Html::beginTag('div', ['class' => 'panel-heading']);
 
             // Render buttons
             $this->renderButtons();
 
-            // Panel titile
             if ($this->title !== null) {
                 echo Html::tag('h4', $this->title, ['class' => 'panel-title']);
             }
-
-            // </div >
             echo Html::endTag('div'); // end panel heading
         }
-
-        //<div class="panel-body" >
         echo Html::beginTag('div', $this->bodyOptions) . "\n";
     }
 
@@ -112,43 +103,41 @@ class Panel extends Widget
         $this->registerClientScripts();
         echo Html::endTag('div') . "\n"; // Panel End body
         echo Html::endTag('div') . "\n"; // Panel End
-
-
     }
 
     protected function initOptions()
     {
         switch ($this->headStyle) {
-            case Panel::PDEFAULT:
-                $headStyles = Panel::PDEFAULT;
+            case self::PDEFAULT:
+                $headStyles = self::PDEFAULT;
                 $bodyStyles = false;
                 break;
-            case Panel::SUCCESS;
-                $headStyles = Panel::SUCCESS;
+            case self::SUCCESS;
+                $headStyles = self::SUCCESS;
                 $bodyStyles = $this->fullColor ? 'bg-green text-white' : false;
                 break;
-            case Panel::WARNING;
-                $headStyles = Panel::WARNING;
+            case self::WARNING;
+                $headStyles = self::WARNING;
                 $bodyStyles = $this->fullColor ? 'bg-orange text-white' : false;
                 break;
-            case Panel::DANGER;
-                $headStyles = Panel::DANGER;
+            case self::DANGER;
+                $headStyles = self::DANGER;
                 $bodyStyles = $this->fullColor ? 'bg-red text-white' : false;
                 break;
-            case Panel::INVERSE;
-                $headStyles = Panel::INVERSE;
+            case self::INVERSE;
+                $headStyles = self::INVERSE;
                 $bodyStyles = $this->fullColor ? 'bg-black' : false;
                 break;
-            case Panel::PRIMARY;
-                $headStyles = Panel::PRIMARY;
+            case self::PRIMARY;
+                $headStyles = self::PRIMARY;
                 $bodyStyles = $this->fullColor ? 'bg-blue text-white' : false;
                 break;
-            case Panel::INFO;
-                $headStyles = Panel::INFO;
+            case self::INFO;
+                $headStyles = self::INFO;
                 $bodyStyles = $this->fullColor ? 'bg-aqua text-white' : false;
                 break;
             default:
-                $headStyles = Panel::INVERSE;
+                $headStyles = self::INVERSE;
                 $bodyStyles = $this->fullColor ? 'bg-black' : false;
                 break;
         }
@@ -160,9 +149,6 @@ class Panel extends Widget
         //body config
         $bodyStyles = $bodyStyles ? 'panel-body ' . $bodyStyles : 'panel-body';
         $this->bodyOptions['class'] = isset($this->bodyOptions['class']) ? $bodyStyles . ' ' . $this->bodyOptions['class'] : $bodyStyles;
-
-
-        //$this->footerOptions['class'] = isset($this->footerOptions['class']) ? 'box-footer ' . $this->footerOptions['class'] : 'box-footer';
     }
 
     /** Initializes the Panel buttons. */
@@ -199,7 +185,6 @@ class Panel extends Widget
                 'id' => 'mass-delete',
                 'class' => 'btn-' . Panel::DANGER,
                 'title' => Yii::t('admincube', 'BUTTON_DELETE_MASS'),
-                //'data-toggle' => 'modal',
             ]
         ];
 
@@ -219,16 +204,7 @@ class Panel extends Widget
     protected function renderButtons()
     {
         if ($this->buttonsTemplate !== null && !empty($this->buttons)) {
-            // <div class="panel-heading-btn" >
             echo Html::beginTag('div', ['class' => 'panel-heading-btn']);
-
-            /*
-                    <a href = "javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data - click = "panel-expand" ><i class="fa fa-expand" ></i ></a >
-                    <a href = "javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data - click = "panel-reload" ><i class="fa fa-repeat" ></i ></a >
-                    <a href = "javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data - click = "panel-collapse" ><i class="fa fa-minus" ></i ></a >
-                    <a href = "javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data - click = "panel-remove" ><i class="fa fa-times" ></i ></a >
-                */
-
             echo preg_replace_callback(
                 '/\\{([\w\-\/]+)\\}/',
                 function ($matches) {
@@ -246,8 +222,6 @@ class Panel extends Widget
                 },
                 $this->buttonsTemplate
             );
-
-            // </div >
             echo Html::endTag('div'); //end buttons
         }
     }
@@ -269,16 +243,8 @@ class Panel extends Widget
                 "var keys = jQuery('#" . $this->grid . "').yiiGridView('getSelectedRows');" .
                 "if (keys == '') {" .
                 "$('#mass_delete_alert_no_sel').modal('show');" .
-                //"alert('" . Yii::t('admincube', 'MSG_NO_SELECTION') . "');" .
                 "} else {" .
                 "$('#mass_delete_alert').modal('show');" .
-                //"if (confirm('" . Yii::t('admincube', 'MSG_DELETE_CONFIRM') . "')) {" .
-                //"jQuery.ajax({" .
-                //"type: 'POST'," .
-                //"url: jQuery(this).attr('href')," .
-                //"data: { " . $this->massParam . ": keys}" .
-                //"});" .
-                //"}" .
                 "}" .
                 "});".
                 " ".
