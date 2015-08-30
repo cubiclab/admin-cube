@@ -193,7 +193,6 @@ class Panel extends Widget
 
         //mass-delete
         $this->buttons['mass-delete'] = [
-            'url' => isset($this->buttons['mass-delete']['url']) ? $this->buttons['mass-delete']['url'] : ['#mass_delete_alert'],
             'label' => isset($this->buttons['mass-delete']['label']) ? $this->buttons['mass-delete']['label'] : '',
             'icon' => 'fa-trash-o',
             'options' => [
@@ -284,6 +283,8 @@ class Panel extends Widget
                 "});".
                 " ".
                 "jQuery(document).on('click', '#btn_delete_confirm', function (evt) {".
+                "evt.preventDefault();" .
+                "var keys = jQuery('#" . $this->grid . "').yiiGridView('getSelectedRows');" .
                 "jQuery.ajax({" .
                 "type: 'POST'," .
                 "url: jQuery(this).attr('href')," .
@@ -296,6 +297,7 @@ class Panel extends Widget
             $boxButtons[] = '{cancel}{delete}';
             $boxButtons = !empty($boxButtons) ? implode(' ', $boxButtons) : null;
             $buttons['delete'] = [
+                'url' => ['mass-delete'],
                 'label' => Yii::t('admincube', 'BUTTON_DELETE'),
                 'options' => [
                     'id' => 'btn_delete_confirm',
