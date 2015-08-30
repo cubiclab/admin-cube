@@ -24,6 +24,8 @@ class Modal extends Widget
     public $modal; //id modal
     public $title;
     public $options = [];
+    public $buttons = [];
+    public $buttonsTemplate;
 
     /**
      * @inheritdoc
@@ -32,7 +34,7 @@ class Modal extends Widget
     {
         parent::init();
         $this->initOptions();
-        //$this->initButtons();
+        $this->initButtons();
 
         // Start modal
         echo Html::beginTag('div', $this->options) . "\n";
@@ -66,6 +68,77 @@ class Modal extends Widget
         $this->options['style'] = isset($this->options['style']) ? $this->options['style'] : 'display: none;';
     }
 
+    /** Initializes the Panel buttons. */
+    protected function initButtons()
+    {
+        //cancel
+        $this->buttons['cancel'] = [
+            'url' => ['javascript:;'],
+            'icon' => 'fa-reply',
+            'label' => Yii::t('admincube', 'BUTTON_CANCEL'),
+            'options' => [
+                'data-dismiss' => 'modal',
+                'class' => 'btn btn-sm btn-white',
+                'title' => Yii::t('admincube', 'BUTTON_CANCEL'),
+            ]
+        ];
+
+        //ok
+        $this->buttons['ok'] = [
+            'url' => ['javascript:;'],
+            'icon' => 'fa-check',
+            'label' => Yii::t('admincube', 'BUTTON_OK'),
+            'options' => [
+                'data-dismiss' => 'modal',
+                'class' => 'btn btn-sm btn-success',
+                'title' => Yii::t('admincube', 'BUTTON_OK'),
+            ]
+        ];
+
+        //close
+        $this->buttons['close'] = [
+            'url' => ['javascript:;'],
+            'icon' => 'fa-reply',
+            'label' => Yii::t('admincube', 'BUTTON_CLOSE'),
+            'options' => [
+                'data-dismiss' => 'modal',
+                'class' => 'btn btn-sm btn-white',
+                'title' => Yii::t('admincube', 'BUTTON_CLOSE'),
+            ]
+        ];
+    }
+
+    /** Render buttons. */
+    protected function renderButtons()
+    {
+        if ($this->buttonsTemplate !== null && !empty($this->buttons)) {
+            // <div class="modal-footer" >
+            echo Html::beginTag('div', ['class' => 'modal-footer']);
+
+
+            echo preg_replace_callback(
+                '/\\{([\w\-\/]+)\\}/',
+                function ($matches) {
+                    $name = $matches[1];
+                    if (isset($this->buttons[$name])) {
+                        $label = isset($this->buttons[$name]['label']) ? $this->buttons[$name]['label'] : '';
+                        $url = isset($this->buttons[$name]['url']) ? $this->buttons[$name]['url'] : '#';
+                        $icon = isset($this->buttons[$name]['icon']) ? Html::tag('i', '', ['class' => 'fa ' . $this->buttons[$name]['icon']]) : '';
+                        $label = $icon . ' ' . $label;
+                        $this->buttons[$name]['options']['class'] = isset($this->buttons[$name]['options']['class']) ? 'btn btn-xs ' . $this->buttons[$name]['options']['class'] : 'btn btn-xs';
+                        return Html::a($label, $url, $this->buttons[$name]['options']);
+                    } else {
+                        return '';
+                    }
+                },
+                $this->buttonsTemplate
+            );
+
+            // </div >
+            echo Html::endTag('div'); //modal-footer
+        }
+    }
+
     /** @inheritdoc */
     public function run()
     {
@@ -73,17 +146,21 @@ class Modal extends Widget
         echo Html::endTag('div') . "\n";
         echo Html::endTag('div') . "\n";
 
-        echo '
-                        <div class="modal-footer">
-                            <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
-                            <a href="javascript:;" class="btn btn-sm btn-danger" id="mass-delete">Action</a>
-                        </div>';
+        // Render buttons
+        $this->renderButtons();
+        //echo '
+        //                <div class="modal-footer">
+         //                   <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+         //                   <a href="javascript:;" class="btn btn-sm btn-danger" id="mass-delete">Action</a>
+          //              </div>';
 
         echo Html::endTag('div') . "\n";
         echo Html::endTag('div') . "\n";
         echo Html::endTag('div') . "\n";
 
     }
+
+
 
 
 
