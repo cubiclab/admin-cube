@@ -113,39 +113,7 @@ class Panel extends Widget
         echo Html::endTag('div') . "\n"; // Panel End body
         echo Html::endTag('div') . "\n"; // Panel End
 
-        $boxButtons[] = '{cancel}{delete}';
-        $boxButtons = !empty($boxButtons) ? implode(' ', $boxButtons) : null;
 
-        $buttons['delete'] = [
-            'url' => 'DELETEFUCKA',
-            'label' => Yii::t('admincube', 'BUTTON_DELETE'),
-            'options' => [
-                'id' => 'btn_delete_confirm',
-                'class' => 'btn btn-sm btn-danger',
-                'title' => Yii::t('admincube', 'BUTTON_DELETE'),
-            ]
-        ];
-
-
-
-        Modal::begin([
-            'modal' => 'mass_delete_alert',
-            'title' => Yii::t('admincube', 'MSG_DELETE_CONFIRM'),
-            'options' => ['class' => 'fade'],
-            'buttonsTemplate' => $boxButtons,
-            'buttons' => $buttons,
-        ]);
-        echo '<p>' . Yii::t('admincube', 'MSG_DELETE_CONFIRM') . '</p>';
-        Modal::end();
-
-        Modal::begin([
-            'modal' => 'mass_delete_alert_no_sel',
-            'title' => Yii::t('admincube', 'MSG_NO_SELECTION'),
-            'options' => ['class' => 'fade'],
-            'buttonsTemplate' => '{close}',
-        ]);
-        echo '<p>' . Yii::t('admincube', 'MSG_NO_SELECTION_DESCRIPTION') . '</p>';
-        Modal::end();
     }
 
     protected function initOptions()
@@ -323,6 +291,37 @@ class Panel extends Widget
                 "});" .
                 "});"
             );
+
+            //Confirm Modal buttons configuration
+            $boxButtons[] = '{cancel}{delete}';
+            $boxButtons = !empty($boxButtons) ? implode(' ', $boxButtons) : null;
+            $buttons['delete'] = [
+                'label' => Yii::t('admincube', 'BUTTON_DELETE'),
+                'options' => [
+                    'id' => 'btn_delete_confirm',
+                    'class' => 'btn btn-sm btn-danger',
+                    'title' => Yii::t('admincube', 'BUTTON_DELETE'),
+                ]
+            ];
+            //Confirm Modal
+            Modal::begin([
+                'modal' => 'mass_delete_alert',
+                'title' => Yii::t('admincube', 'MSG_DELETE_CONFIRM'),
+                'options' => ['class' => 'fade'],
+                'buttonsTemplate' => $boxButtons,
+                'buttons' => $buttons,
+            ]);
+            echo '<p>' . Yii::t('admincube', 'MSG_DELETE_CONFIRM_DESCRIPTION') . '</p>';
+            Modal::end();
+            //No selection alert modal
+            Modal::begin([
+                'modal' => 'mass_delete_alert_no_sel',
+                'title' => Yii::t('admincube', 'MSG_NO_SELECTION'),
+                'options' => ['class' => 'fade'],
+                'buttonsTemplate' => '{close}',
+            ]);
+            echo '<p>' . Yii::t('admincube', 'MSG_NO_SELECTION_DESCRIPTION') . '</p>';
+            Modal::end();
         }
     }
 
