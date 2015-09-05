@@ -3,18 +3,32 @@ namespace cubiclab\admin;
 
 use Yii;
 use yii\base\BootstrapInterface;
+use cubiclab\admin\models\Cubes;
 
 class AdminCube extends \yii\base\Module implements BootstrapInterface
 {
     const VERSION = "0.0.1-prealpha";
-
-
+    
+    public $activeCubes;
 
     public function init()
     {
         parent::init();
         $this->registerTranslations();
         $this->layout = 'main';
+
+        $this->activeCubes = Cubes::findAllActive();
+
+        $cubes = [];
+        foreach($this->activeCubes as $cubeName => $cube){
+            $cubes[$cubeName]['class'] = $cube->class;
+            if(is_array($cube->settings)){
+                foreach($cube->settings as $settingName => $settingValue) {
+                    $cubes[$cubeName][$settingName] = $settingValue;
+                }
+            }
+        }
+        $this->setModules($cubes);
     }
 
     public function registerTranslations()

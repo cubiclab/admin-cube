@@ -20,3 +20,7 @@ return [
     ],
 ];
 ```
+
+Apply migrations:
+
+    $ yii migrate --migrationPath="@vendor/cubiclab/admin-cube/migrations"
