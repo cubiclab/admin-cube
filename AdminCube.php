@@ -8,8 +8,9 @@ use cubiclab\admin\models\Cubes;
 class AdminCube extends \yii\base\Module implements BootstrapInterface
 {
     const VERSION = "0.0.1-prealpha";
-    
+
     public $activeCubes;
+    public $sideBarMenu;
 
     public function init()
     {
@@ -27,7 +28,10 @@ class AdminCube extends \yii\base\Module implements BootstrapInterface
                     $cubes[$cubeName][$settingName] = $settingValue;
                 }
             }
+
+            $this->sideBarMenu[] = $cubes[$cubeName]['class']::$menu;
         }
+
         $this->setModules($cubes);
     }
 
@@ -49,5 +53,9 @@ class AdminCube extends \yii\base\Module implements BootstrapInterface
                 '<_m>/<_c>/<_a>' => '<_m>/<_c>/<_a>'
             ]
         );
+    }
+
+    public function getSideBar(){
+        return $this->sideBarMenu;
     }
 }

@@ -80,7 +80,7 @@ class Cubes extends ActiveRecord
         return $result;
     }
 
-    static function getDefaultSettings($moduleClass)
+    public function getDefaultSettings($moduleClass)
     {
         if (isset($moduleClass::$defaultSettings)) {
             return $moduleClass::$defaultSettings;
