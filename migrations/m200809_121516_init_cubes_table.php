@@ -27,7 +27,7 @@ class m200809_121516_init_cubes_table extends Migration
 
         // Indexes
         $this->createIndex('name', '{{%cubes}}', 'name', true);
-        $this->createIndex('status', '{{%cubes}}', 'status', true);
+        $this->createIndex('status', '{{%cubes}}', 'status', false);
         $this->createIndex('order', '{{%cubes}}', 'order', true);
 
     }
