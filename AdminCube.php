@@ -29,6 +29,8 @@ class AdminCube extends \yii\base\Module implements BootstrapInterface
                 }
             }
 
+            $cubes[$cubeName]['isACP'] = true; //вид ACP
+
             $this->sideBarMenu[] = $cubes[$cubeName]['class']::$menu;
         }
 
