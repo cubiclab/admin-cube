@@ -20,6 +20,8 @@ return [
     'BUTTON_DELETE'          => 'Удалить',
     'BUTTON_CREATE'          => 'Создать',
     'BUTTON_UPDATE'          => 'Изменить',
+    'BUTTON_SEARCH'          => 'Найти',
+    'BUTTON_RESET'           => 'Сбросить',
 
     //messages
     'MSG_DELETE_CONFIRM'             => 'Подтверждение удаления',

@@ -20,6 +20,8 @@ return [
     'BUTTON_DELETE'          => 'Delete',
     'BUTTON_CREATE'          => 'Create',
     'BUTTON_UPDATE'          => 'Update',
+    'BUTTON_SEARCH'          => 'Searcg',
+    'BUTTON_RESET'           => 'Reset',
 
     //messages
     'MSG_DELETE_CONFIRM'             => 'Delete confirmation',
