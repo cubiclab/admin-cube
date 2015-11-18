@@ -67,6 +67,9 @@ class Panel extends Widget
     /** @var string delete action param name */
     public $deleteParam = 'id';
 
+    /** @var string update action param name */
+    public $updateParam = 'id';
+
     /** @var string mass parameters */
     public $massParam = 'ids';
 
@@ -164,6 +167,18 @@ class Panel extends Widget
                 'title' => Yii::t('admincube', 'BUTTON_CREATE')
             ]
         ];
+
+        //update
+        $this->buttons['update'] = [
+            'url' => ['update', $this->updateParam => Yii::$app->request->get($this->updateParam)],
+            'label' => isset($this->buttons['update']['label']) ? $this->buttons['update']['label'] : '',
+            'icon' => 'fa-reply',
+            'options' => [
+                'class' => 'btn-' . Panel::WARNING,
+                'title' => Yii::t('admincube', 'BUTTON_UPDATE'),
+            ]
+        ];
+
         //delete
         $this->buttons['delete'] = [
             'url' => ['delete', $this->deleteParam => Yii::$app->request->get($this->deleteParam)],
